@@ -1,7 +1,5 @@
-// Initialize an empty array to store NFTs
-const NFTs = [];
+let NFTs = [];
 
-// Function to mint an NFT
 function mintNFT(name, img, nickname, currency, value) {
     const nft = {
         name,
@@ -13,31 +11,30 @@ function mintNFT(name, img, nickname, currency, value) {
     NFTs.push(nft);
 }
 
-// Function to list all minted NFTs
+
 function listNFTs() {
     console.log("\nList of minted NFTs:");
-    NFTs.forEach((nft) => {
-        console.log(`Name: ${nft.name}`);
-        console.log(`Image: ${nft.img}`);
-        console.log(`Nickname: ${nft.nickname}`);
-        console.log(`Currency: ${nft.currency}`);
-        console.log(`Value: ${nft.value}\n`);
-    });
+    for(let i=0 ; i<NFTs.length ; i++) {
+        console.log(
+        "\n\nName : ",NFTs[i].name,
+        "\nimg : ",NFTs[i].img,
+        "\nnickname : ",NFTs[i].nickname,
+        "\ncurrency : ",NFTs[i].currency,
+        "\nvalue : ",NFTs[i].value)
+    }
 }
 
-// Function to get the total supply of NFTs
+
 function getTotalSupply() {
     console.log(`Total number of minted NFTs: ${NFTs.length}`);
 }
 
-// Mint some NFTs
 mintNFT("dogecoin", "blackforest", "dcx", "dollar", 100);
 mintNFT("ethereum", "galaxy", "ethx", "ether", 200);
 mintNFT("solana", "sunset", "solx", "sol", 150);
 mintNFT("cardano", "rainbow", "adax", "ada", 120);
 
-// List all minted NFTs
+
 listNFTs();
 
-// Get the total supply
 getTotalSupply();
