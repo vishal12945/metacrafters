@@ -49,17 +49,34 @@ pragma solidity 0.8.18;
        to the amount that is supposed to be burned.
 */
 
-### Steps to Implement the Contract
+
+contract MyToken {
+
+    // public variables here
+
+    // mapping variable here
+
+    // mint function
+
+    // burn function
+
+}
+``` 
+
+
+# Steps to Implement the Token Contract
 
 1. **Define Public Variables**:
-   - Define `tokenName`, `tokenAbbrv`, and `totalSupply` as public variables.
-  
+   - Define `name`, `icon`, and `totalsupply` as public variables.
+
 2. **Define Mapping**:
    - Create a mapping `balances` to map addresses to their token balances.
-  
+
 3. **Implement Mint Function**:
-   - The `mint` function will increase the `totalSupply` and update the balance of the specified address.
-  
+   - The `mint` function will increase the `totalsupply` and update the balance of the specified address.
+
 4. **Implement Burn Function**:
+   - The `burn` function will decrease the `totalsupply` and the balance of the specified address.
+   - Ensure the balance is sufficient before burning tokens using a `require` statement.
    - The `burn` function will decrease the `totalSupply` and the balance of the specified address.
    - Ensure the balance is sufficient before burning tokens using a `require` statement.
