@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { provider, signer } from './ethers.ts';
 import Currency from '../build/contracts/Currency.json';
-import { Circles, CirclesWithBar, InfinitySpin } from 'react-loader-spinner'
+import { Circles, CirclesWithBar, ThreeCircles, InfinitySpin } from 'react-loader-spinner'
 import { disabled } from 'express/lib/application.js';
 
 const App: React.FC = () => {
@@ -98,32 +98,33 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className='mx-20 my-5 flex flex-col gap-10'>
+    <div className='max-w-4xl mx-auto my-10 p-6 bg-gray-100 shadow-lg rounded-lg'>
 
-      <h1 className='text-4xl font-semibold'>Banking DApp</h1>
+      <h1 className='text-5xl font-bold text-center text-blue-600 mb-8'>Banking website</h1>
 
-      <h3 className='text-2xl'>Account : <span>{account}</span></h3>
+      <h3 className='text-xl font-medium text-gray-800 mb-4'>Account: <span className='text-gray-600'>{account}</span></h3>
 
-      <h3 className='text-2xl flex' >Balance : {loading ? <CirclesWithBar height={40}/> :<span> {balance}</span>}</h3>
+      <h3 className='text-xl font-medium text-gray-800 mb-8 flex items-center'>
+        Balance: {loading ? <ThreeCircles height={40}/> : <span className='text-gray-600'> {balance}</span>}
+      </h3>
       
-      <form className='w-fit flex gap-4 items-center'>
-        <input type="number" className='border-2 py-4 rounded-lg p-2 text-xl' placeholder='Amount' onChange={(e)=>{setAmount(parseInt(e.target.value))}} />
-        <button className='w-40 text-white shadow-2xl border-2 border-slate-900 font-semibold text-2xl bg-blue-500 rounded-md px-10 py-3' onClick={handlePrint} disabled={loading}>Print</button>
+      <form className='mb-8 flex flex-col gap-4'>
+        <input type="number" className='border-2 py-3 px-4 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-400' placeholder='Amount' onChange={(e) => { setAmount(parseInt(e.target.value)) }} />
+        <button className='self-center w-40 text-white shadow-md bg-blue-600 hover:bg-blue-700 font-semibold text-lg rounded-full px-5 py-2' onClick={handlePrint} disabled={loading}>Print</button>
       </form>
 
-      <form className='w-fit flex gap-4 items-center '>
-        <input type="number" className='border-2 py-4 rounded-lg p-2 text-xl' placeholder='Amount' onChange={(e)=>{setAmount(parseInt(e.target.value))}} />
-        <button className='w-40 text-white shadow-2xl border-2 border-slate-900 font-semibold text-2xl bg-blue-500 rounded-md px-10 py-3' onClick={handleSpend}disabled={loading}>Spend</button>
+      <form className='mb-8 flex flex-col gap-4'>
+        <input type="number" className='border-2 py-3 px-4 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-400' placeholder='Amount' onChange={(e) => { setAmount(parseInt(e.target.value)) }} />
+        <button className='self-center w-40 text-white shadow-md bg-blue-600 hover:bg-blue-700 font-semibold text-lg rounded-full px-5 py-2' onClick={handleSpend} disabled={loading}>Burn</button>
       </form>
       
-      <form className='w-fit flex gap-4 items-center'>
-        <div className='flex flex-col gap-5'>
-        <input type="text" className='border-2 py-4 rounded-lg p-2 text-xl' placeholder='Amount' onChange={(e)=>{setAmount(parseInt(e.target.value))}} />
-        <input type='text' className='border-2 py-4 rounded-lg p-2 text-xl' placeholder='Receiver address' onChange={(e)=>{setReceiver(e.target.value)}}/>
-        </div>
-        <button className='w-40 text-white self-end shadow-2xl border-2 border-slate-900 font-semibold text-2xl bg-blue-500 rounded-md px-10 py-3' onClick={handleTransfer} disabled={loading}>Transfer</button>
+      <form className='flex flex-col gap-4'>
+        <input type="number" className='border-2 py-3 px-4 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-400' placeholder='Amount' onChange={(e) => { setAmount(parseInt(e.target.value)) }} />
+        <input type='text' className='border-2 py-3 px-4 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-400' placeholder='Receiver address' onChange={(e) => { setReceiver(e.target.value) }} />
+        <button className='self-center w-40 text-white shadow-md bg-blue-600 hover:bg-blue-700 font-semibold text-lg rounded-full px-5 py-2' onClick={handleTransfer} disabled={loading}>Transfer</button>
       </form>
-    </div>
+  
+  </div>
   );
 };
 

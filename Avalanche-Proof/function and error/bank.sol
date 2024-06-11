@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract PiggyBank {
+contract Bank {
     address public owner;
     uint256 public totalDeposits;
 
@@ -13,7 +13,7 @@ contract PiggyBank {
     }
 
     function deposit() public payable {
-        require(msg.value > 0, "Deposit amount must be greater than zero");
+        require(msg.value > 0, "Deposit amount should be greater than zero");
 
         totalDeposits += msg.value;
 
@@ -23,11 +23,11 @@ contract PiggyBank {
     function withdraw(uint256 amount) public {
         require(msg.sender == owner, "Only the owner can withdraw funds");
 
-        require(amount <= address(this).balance, "Insufficient balance");
+        require(amount <= address(this).balance, "Balance is not enough");
 
         assert(address(this).balance >= amount);
 
-        (bool success, ) = owner.call{value: amount}("");
+        (bool success,) = owner.call{value: amount}("");
         if (!success) {
             revert("Failed to withdraw funds");
         }
@@ -35,7 +35,6 @@ contract PiggyBank {
         emit Withdrawal(owner, amount);
     }
 
-    // Function to get the contract balance
     function getBalance() public view returns (uint256) {
         return address(this).balance;
     }
