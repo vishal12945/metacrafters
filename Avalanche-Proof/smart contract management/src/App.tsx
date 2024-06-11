@@ -96,7 +96,6 @@ const App: React.FC = () => {
       console.error('Error transfering currency', error);
     }
   }
-
   return (
     <div className='max-w-4xl mx-auto my-10 p-6 bg-gray-100 shadow-lg rounded-lg'>
 
