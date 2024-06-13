@@ -10,7 +10,7 @@ contract MysteryBox {
     string[] private items = [
         "Gold Coins",
         "Silver Sword",
-        "Ancient Tresure",
+        "Ancient Treasure",
         "$1000 Cash",
         "Diamond Ring"
     ];
