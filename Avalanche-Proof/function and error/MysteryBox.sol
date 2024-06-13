@@ -10,9 +10,9 @@ contract MysteryBox {
     string[] private items = [
         "Gold Coins",
         "Silver Sword",
-        "Ancient Artifact",
-        "Mystic Scroll",
-        "Cursed Ring"
+        "Ancient Tresure",
+        "$1000 Cash",
+        "Diamond Ring"
     ];
 
     event BoxBought(uint256 boxId, address buyer);
