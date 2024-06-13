@@ -1,41 +1,55 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-contract Bank {
+contract MysteryBox {
     address public owner;
-    uint256 public totalDeposits;
+    uint256 public totalBoxes;
+    mapping(uint256 => string) public boxContents;
+    mapping(uint256 => address) public boxOwners;
 
-    event Deposit(address indexed sender, uint256 amount);
-    event Withdrawal(address indexed receiver, uint256 amount);
+    string[] private items = [
+        "Gold Coins",
+        "Silver Sword",
+        "Ancient Artifact",
+        "Mystic Scroll",
+        "Cursed Ring"
+    ];
+
+    event BoxBought(uint256 boxId, address buyer);
+    event BoxOpened(uint256 boxId, string item, address opener);
+
+    modifier onlyOwnerOfBox(uint256 boxId) {
+        require(boxOwners[boxId] == msg.sender, "Caller is not the owner of the box");
+        _;
+    }
 
     constructor() {
         owner = msg.sender;
     }
 
-    function deposit() public payable {
-        require(msg.value > 0, "Deposit amount should be greater than zero");
+    // Function to buy a mystery box
+    function buyBox() public {
+        totalBoxes++;
+        uint256 boxId = totalBoxes;
+        boxOwners[boxId] = msg.sender;
+        boxContents[boxId] = "Unopened";
 
-        totalDeposits += msg.value;
-
-        emit Deposit(msg.sender, msg.value);
+        emit BoxBought(boxId, msg.sender);
     }
 
-    function withdraw(uint256 amount) public {
-        require(msg.sender == owner, "Only the owner can withdraw funds");
+    // Function to open a mystery box
+    function openBox(uint256 boxId) public onlyOwnerOfBox(boxId) {
+        require(keccak256(abi.encodePacked(boxContents[boxId])) == keccak256(abi.encodePacked("Unopened")), "Box already opened");
 
-        require(amount <= address(this).balance, "Balance is not enough");
+        string memory item = getRandomItem();
+        boxContents[boxId] = item;
 
-        assert(address(this).balance >= amount);
-
-        (bool success,) = owner.call{value: amount}("");
-        if (!success) {
-            revert("Failed to withdraw funds");
-        }
-        totalDeposits -= amount;
-        emit Withdrawal(owner, amount);
+        emit BoxOpened(boxId, item, msg.sender);
     }
 
-    function getBalance() public view returns (uint256) {
-        return address(this).balance;
+    // Private function to get a random item
+    function getRandomItem() private view returns (string memory) {
+        uint256 index = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, totalBoxes))) % items.length;
+        return items[index];
     }
 }
