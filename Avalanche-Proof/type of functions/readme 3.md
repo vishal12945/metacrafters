@@ -38,4 +38,4 @@ This contract implements an ERC20 token called NotCoin (symbol: NOT) using OpenZ
 
 ## Help
 
-For any issues or inquiries, reach out on Twitter: [@sourxv_me](https://twitter.com/sourxv_me)
+For any issues or inquiries, reach out on Twitter: [@vishalji0611](https://x.com/vishalji0611?s=08)
